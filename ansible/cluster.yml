@@ -1,0 +1,19 @@
+- hosts: all
+  tasks:
+    - name: check health
+      command:  curl -L http://10.10.10.159:8082/healthcheck
+      register: health
+      ignore_errors: True
+    - debug:
+        var: health.stdout
+
+- hosts: all
+  tasks:
+    - name: rebuild DB
+      command: java -jar /home/grapevine/dbrecovery-6.0.0-SNAPSHOT.jar restore /home/grapevine/tmp/backup
+      register: rebuild
+      ignore_errors: True
+      when: health.stdout.find('OK')==-1
+      become: true
+    - debug:
+        var: rebuild

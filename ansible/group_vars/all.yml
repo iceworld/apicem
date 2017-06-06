@@ -1,0 +1,3 @@
+#SSH username/password
+ansible_ssh_user: grapevine
+ansible_ssh_pass: Cisco123
