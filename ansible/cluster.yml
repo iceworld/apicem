@@ -12,8 +12,8 @@
     - name: rebuild DB
       command: java -jar /home/grapevine/dbrecovery-6.0.0-SNAPSHOT.jar restore /home/grapevine/tmp/backup
       register: rebuild
+      when: health.stdout.find('OK')==1
+      become: True
       ignore_errors: True
-      when: health.stdout.find('OK')==-1
-      become: true
     - debug:
         var: rebuild

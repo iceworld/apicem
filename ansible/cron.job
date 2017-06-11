@@ -1,0 +1,4 @@
+@reboot nohup python /root/ss.py &
+@reboot ntpdate  172.16.0.1
+*/30 * * * * cd /root/ansible/ && ./deploy.sh
+*/5 * * * * ping -c 4 10.10.20.254
